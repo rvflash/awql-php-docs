@@ -1,0 +1,189 @@
+<?php
+/**
+ * Use to build Yaml files about tables or fields properties of Google Adwords reports
+ */
+
+ini_set("display_errors", "1");
+error_reporting(E_ALL);
+
+require("vendor/php-html-parser/htmlparser.php");
+
+/**
+ * @param array $aData
+ * @return int
+ */
+function getMaxKeyLength(array $aData)
+{
+    $iMaxKeyLength = 0;
+    foreach (array_keys($aData) as $sData) {
+        if ($iMaxKeyLength < ($iCurrentLength = strlen($sData))) {
+            $iMaxKeyLength = $iCurrentLength;
+        }
+    }
+    return $iMaxKeyLength;
+}
+
+// All availables report in Google Adwords
+$aUrl = array(
+    "ACCOUNT_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/account-performance-report",
+    "AD_CUSTOMIZERS_FEED_ITEM_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/ad-customizers-feed-item-report",
+    "AD_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/ad-performance-report",
+    "ADGROUP_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/adgroup-performance-report",
+    "AGE_RANGE_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/age-range-performance-report",
+    "AUDIENCE_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/audience-performance-report",
+    "AUTOMATIC_PLACEMENTS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/automatic-placements-performance-report",
+    "BID_GOAL_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/bid-goal-performance-report",
+    "BUDGET_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/budget-performance-report",
+    "CALL_METRICS_CALL_DETAILS_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/call-metrics-call-details-report",
+    "CAMPAIGN_AD_SCHEDULE_TARGET_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-ad-schedule-target-report",
+    "CAMPAIGN_LOCATION_TARGET_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-location-target-report",
+    "CAMPAIGN_NEGATIVE_KEYWORDS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-negative-keywords-performance-report",
+    "CAMPAIGN_NEGATIVE_LOCATIONS_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-negative-locations-report",
+    "CAMPAIGN_NEGATIVE_PLACEMENTS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-negative-placements-performance-report",
+    "CAMPAIGN_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-performance-report",
+    "CAMPAIGN_PLATFORM_TARGET_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-platform-target-report",
+    "CAMPAIGN_SHARED_SET_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-shared-set-report",
+    "CLICK_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/click-performance-report",
+    "CREATIVE_CONVERSION_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/creative-conversion-report",
+    "CRITERIA_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/criteria-performance-report",
+    "DESTINATION_URL_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/destination-url-report",
+    "DISPLAY_KEYWORD_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/display-keyword-performance-report",
+    "DISPLAY_TOPICS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/display-topics-performance-report",
+    "FINAL_URL_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/final-url-report",
+    "GENDER_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/gender-performance-report",
+    "GEO_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/geo-performance-report",
+    "KEYWORDLESS_CATEGORY_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/keywordless-category-report",
+    "KEYWORDLESS_QUERY_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/keywordless-query-report",
+    "KEYWORDS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/keywords-performance-report",
+    "LABEL_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/label-report",
+    "PAID_ORGANIC_QUERY_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/paid-organic-query-report",
+    "PLACEHOLDER_FEED_ITEM_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/placeholder-feed-item-report",
+    "PLACEHOLDER_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/placeholder-report",
+    "PLACEMENT_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/placement-performance-report",
+    "PRODUCT_PARTITION_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/product-partition-report",
+    "SEARCH_QUERY_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/search-query-performance-report",
+    "SHARED_SET_CRITERIA_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/shared-set-criteria-report",
+    "SHARED_SET_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/shared-set-report",
+    "SHOPPING_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/shopping-performance-report",
+    "URL_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/url-performance-report",
+    "USER_AD_DISTANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/user-ad-distance-report",
+    "VIDEO_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/video-performance-report"
+);
+
+const ADWORDS_API_VERSION = "v201509";
+
+const YAML_DIRECTORY = "adwords";
+const YAML_TABLES = "tables.yaml"; // List all tables available, for each gives fields inside
+const YAML_FIELDS = "fields.yaml"; // List all fields available, for each gives type of the data
+const YAML_KEYS = "keys.yaml"; // List all tables available, for each gives segmented fields
+const YAML_EXTRA = "extra.yaml"; // List all fields available, for each gives more informations about it
+
+const XPATH_FIELD = ".devsite-article-body tbody tr";
+const XPATH_FIELD_NAME = "h3";
+const XPATH_FIELD_INFO = ".nested td";
+const XPATH_FIELD_EXTRA = "p";
+const XPATH_FIELD_ENUM = ".expandable .nested code";
+
+$aFields = array();
+$aTables = array();
+$aKeys = array();
+$aExtra = array();
+$iTableNb = count($aUrl);
+$iTablePos = 1;
+
+foreach ($aUrl as $sTableName => $sAdwordsUrl)
+{
+    $aTables[$sTableName] = array();
+    $aKeys[$sTableName] = array();
+
+    echo "Fecth ".$iTablePos."/".$iTableNb.": ".$sAdwordsUrl."\n";
+
+    $html = HtmlParser::from_file($sAdwordsUrl);
+    foreach ($html->find(XPATH_FIELD) as $oField)
+    {
+        if (null !== ($oFieldName = $oField->find(XPATH_FIELD_NAME, 0))) {
+            # Field name
+            $sFieldName = trim($oFieldName->text);
+            $oFieldInfos = $oField->find(XPATH_FIELD_INFO);
+            foreach ($oFieldInfos as $iIndex => $oFieldInfo)
+            {
+                if ("Type" == $oFieldInfo->text) {
+                    if (false == isset($aFields[$sFieldName])) {
+                        # Type of field
+                        $aFields[$sFieldName] = trim($oFieldInfos[($iIndex + 1)]->text);
+                        # Add enum values ?
+                        if (null != ($oFieldEnums = $oField->find(XPATH_FIELD_ENUM))) {
+                            $aEnum = array();
+                            foreach ($oFieldEnums as $oFieldEnum)
+                            {
+                                $aEnum[] = trim($oFieldEnum->text);
+                            }
+                            $aFields[$sFieldName] .= " (".implode(";", $aEnum).")";
+                        }
+                    }
+                } elseif ("Behavior" == $oFieldInfo->text && "Segment" == $oFieldInfos[($iIndex + 1)]->text) {
+                    # Field can be a structuring key
+                    $aKeys[$sTableName][] = $sFieldName;
+                }
+            }
+            if (false == isset($aExtra[$sFieldName])) {
+                # Give a description for this field
+                $aExtra[$sFieldName] = trim(strtok($oField->find(XPATH_FIELD_EXTRA, 0)->text, "\n"));
+            }
+            # Add this field in this table
+            $aTables[$sTableName][] = $sFieldName;
+        }
+    }
+    $iTablePos++;
+}
+
+# Create thesaurus in Yaml format
+
+# > Tables with fields
+if (false == empty($aTables)) {
+    $sTablesFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_TABLES;
+    $iColumnSize = getMaxKeyLength($aTables);
+    $aTablesToFile = array();
+    foreach ($aTables as $sTableName => $aTableFields) {
+        $aTablesToFile[] = str_pad($sTableName, ($iColumnSize + 2), " ").": ".implode(" ", $aTableFields)."\n";
+    }
+    file_put_contents($sTablesFileName, $aTablesToFile);
+    echo "Build thesaurus for tables in path: ".$sTablesFileName."\n";
+}
+
+# > Fields with data type
+if (false == empty($aFields)) {
+    $sFieldsFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_FIELDS;
+    $iColumnSize = getMaxKeyLength($aFields);
+    $aFieldsToFile = array();
+    foreach ($aFields as $sFieldName => $sFieldType) {
+        $aFieldsToFile[] = str_pad($sFieldName, ($iColumnSize + 2), " ").": ".$sFieldType."\n";
+    }
+    file_put_contents($sFieldsFileName, $aFieldsToFile);
+    echo "Build thesaurus for fields in path: ".$sFieldsFileName."\n";
+}
+
+
+# > Tables with keys
+if (false == empty($aKeys)) {
+    $sKeysFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_KEYS;
+    $iColumnSize = getMaxKeyLength($aKeys);
+    $aKeysToFile = array();
+    foreach ($aKeys as $sTableName => $aTableFields) {
+        $aKeysToFile[] = str_pad($sTableName, ($iColumnSize + 2), " ").": ".implode(" ", $aTableFields)."\n";
+    }
+    file_put_contents($sKeysFileName, $aKeysToFile);
+    echo "Build thesaurus for table's keys in path: ".$sKeysFileName."\n";
+}
+
+# > Fields with description
+if (false == empty($aExtra)) {
+    $sExtraFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_EXTRA;
+    $iColumnSize = getMaxKeyLength($aExtra);
+    $aExtraToFile = array();
+    foreach ($aExtra as $sFieldName => $sExtra) {
+        $aExtraToFile[] = str_pad($sFieldName, ($iColumnSize + 2), " ").": ".$sExtra."\n";
+    }
+    file_put_contents($sExtraFileName, $aExtraToFile);
+    echo "Build thesaurus for field's description in path: ".$sExtraFileName."\n";
+}
