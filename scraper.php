@@ -2,9 +2,8 @@
 /**
  * Use to build Yaml files about tables or fields properties of Google Adwords reports
  */
-
 ini_set("display_errors", "1");
-error_reporting(E_ALL);
+ini_set("error_reporting", E_ALL);
 
 require("vendor/php-html-parser/htmlparser.php");
 
@@ -73,7 +72,9 @@ $aUrl = array(
 const ADWORDS_API_VERSION = "v201509";
 
 const YAML_DIRECTORY = "adwords";
+const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )
 const YAML_TABLES = "tables.yaml"; // List all tables available, for each gives fields inside
+const YAML_BLACKLIST_FIELDS = "blacklisted_fields.yaml"; // For each tables, list all fields to exclude
 const YAML_FIELDS = "fields.yaml"; // List all fields available, for each gives type of the data
 const YAML_KEYS = "keys.yaml"; // List all tables available, for each gives segmented fields
 const YAML_EXTRA = "extra.yaml"; // List all fields available, for each gives more informations about it
@@ -83,18 +84,22 @@ const XPATH_FIELD_NAME = "h3";
 const XPATH_FIELD_INFO = ".nested td";
 const XPATH_FIELD_EXTRA = "p";
 const XPATH_FIELD_ENUM = ".expandable .nested code";
+const XPATH_FIELD_COMPATIBILITY = ".expandable div code";
 
 $aFields = array();
-$aTables = array();
 $aKeys = array();
 $aExtra = array();
+$aTables = array();
+$aCompatibility = array();
 $iTableNb = count($aUrl);
 $iTablePos = 1;
 
+# For each Url, fetch and parse Google Adwords page
 foreach ($aUrl as $sTableName => $sAdwordsUrl)
 {
     $aTables[$sTableName] = array();
     $aKeys[$sTableName] = array();
+    $aCompatibility[$sTableName] = array();
 
     echo "Fecth ".$iTablePos."/".$iTableNb.": ".$sAdwordsUrl."\n";
 
@@ -125,6 +130,18 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
                     # Field can be a structuring key
                     $aKeys[$sTableName][] = $sFieldName;
                 }
+
+                # This field has uncompatibilities with others ?
+                if (false == isset($aCompatibility[$sTableName][$sFieldName])) {
+                    $aCompatibility[$sTableName][$sFieldName] = array();
+
+                    $oFieldCompatibilities = $oField->find(XPATH_FIELD_COMPATIBILITY);
+                    foreach ($oFieldCompatibilities as $oFieldCompatibility)
+                    {
+                        $aCompatibility[$sTableName][$sFieldName][] = $oFieldCompatibility->text;
+                    }
+                }
+
             }
             if (false == isset($aExtra[$sFieldName])) {
                 # Give a description for this field
@@ -137,53 +154,116 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
     $iTablePos++;
 }
 
+/**
+ * Used to sort array by adding on top the field with more uncompatibilities
+ * @param array $aFieldsA
+ * @param array $aFieldsB
+ * @return bool
+ */
+function sortByUncompatibilities ($aFieldsA, $aFieldsB)
+{
+    $iNbFieldsA = count($aFieldsA);
+    $iNbFieldsB = count($aFieldsB);
+
+    if ($iNbFieldsA == $iNbFieldsB) {
+        return 0;
+    }
+
+    return ($iNbFieldsA < $iNbFieldsB ? 1 : -1);
+}
+
 # Create thesaurus in Yaml format
 
 # > Tables with fields
 if (false == empty($aTables)) {
-    $sTablesFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_TABLES;
-    $iColumnSize = getMaxKeyLength($aTables);
+    $sTablesFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_TABLES;
+    $iTableColumnSize = getMaxKeyLength($aTables);
     $aTablesToFile = array();
     foreach ($aTables as $sTableName => $aTableFields) {
-        $aTablesToFile[] = str_pad($sTableName, ($iColumnSize + 2), " ").": ".implode(" ", $aTableFields)."\n";
+        $aTablesToFile[] = str_pad($sTableName, ($iTableColumnSize + 2), " ").": ".implode(" ", $aTableFields)."\n";
     }
-    file_put_contents($sTablesFileName, $aTablesToFile);
-    echo "Build thesaurus for tables in path: ".$sTablesFileName."\n";
+    file_put_contents($sTablesFilePath, $aTablesToFile);
+    echo "Build thesaurus for tables in path: ".$sTablesFilePath."\n";
 }
 
 # > Fields with data type
 if (false == empty($aFields)) {
-    $sFieldsFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_FIELDS;
+    $sFieldsFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_FIELDS;
     $iColumnSize = getMaxKeyLength($aFields);
     $aFieldsToFile = array();
     foreach ($aFields as $sFieldName => $sFieldType) {
         $aFieldsToFile[] = str_pad($sFieldName, ($iColumnSize + 2), " ").": ".$sFieldType."\n";
     }
-    file_put_contents($sFieldsFileName, $aFieldsToFile);
-    echo "Build thesaurus for fields in path: ".$sFieldsFileName."\n";
+    file_put_contents($sFieldsFilePath, $aFieldsToFile);
+    echo "Build thesaurus for fields in path: ".$sFieldsFilePath."\n";
 }
 
 
 # > Tables with keys
 if (false == empty($aKeys)) {
-    $sKeysFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_KEYS;
+    $sKeysFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_KEYS;
     $iColumnSize = getMaxKeyLength($aKeys);
     $aKeysToFile = array();
     foreach ($aKeys as $sTableName => $aTableFields) {
         $aKeysToFile[] = str_pad($sTableName, ($iColumnSize + 2), " ").": ".implode(" ", $aTableFields)."\n";
     }
-    file_put_contents($sKeysFileName, $aKeysToFile);
-    echo "Build thesaurus for table's keys in path: ".$sKeysFileName."\n";
+    file_put_contents($sKeysFilePath, $aKeysToFile);
+    echo "Build thesaurus for table's keys in path: ".$sKeysFilePath."\n";
 }
 
 # > Fields with description
 if (false == empty($aExtra)) {
-    $sExtraFileName = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_EXTRA;
+    $sExtraFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_EXTRA;
     $iColumnSize = getMaxKeyLength($aExtra);
     $aExtraToFile = array();
     foreach ($aExtra as $sFieldName => $sExtra) {
         $aExtraToFile[] = str_pad($sFieldName, ($iColumnSize + 2), " ").": ".$sExtra."\n";
     }
-    file_put_contents($sExtraFileName, $aExtraToFile);
-    echo "Build thesaurus for field's description in path: ".$sExtraFileName."\n";
+    file_put_contents($sExtraFilePath, $aExtraToFile);
+    echo "Build thesaurus for field's description in path: ".$sExtraFilePath."\n";
+}
+
+# > Tables with incompatible fields
+if (false == empty($aCompatibility)) {
+    $sCompatibilitiesFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_COMPATIBILITY_DIR."/";
+    $sBlacklistedFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_BLACKLIST_FIELDS;
+    foreach ($aCompatibility as $sTableName => $aTableFields) {
+        uasort($aTableFields, "sortByUncompatibilities");
+
+        # List all uncompatibles fields in this tables
+        $aCompatibilitiesToFile = array();
+        $iColumnSize = getMaxKeyLength($aTableFields);
+        foreach ($aTableFields as $sFieldName => $aUncompatibilityFields) {
+            if (false == empty($aUncompatibilityFields)) {
+                $aCompatibilitiesToFile[] =
+                    str_pad($sFieldName, ($iColumnSize + 2), " ") . ": " . implode(" ", $aUncompatibilityFields) . "\n";
+            }
+        }
+        $sTableCompatibilitiesFilePath = $sCompatibilitiesFilePath.$sTableName.".yaml";
+        file_put_contents($sTableCompatibilitiesFilePath, $aCompatibilitiesToFile);
+        echo "Build thesaurus for uncompatibles fields for table ".$sTableName." in path: ".$sTableCompatibilitiesFilePath."\n";
+
+        # List all blacklisted fields in this tables (all fields which after cleaning still have some uncompatibilities)
+        $sBlacklistedFields = "";
+        $aUncompatibleFields = array_keys(array_filter($aTableFields));
+        foreach ($aUncompatibleFields as $sUncompatibleField) {
+            $iNbUsing = 0;
+            foreach ($aTableFields as $sFieldName => &$aUncompatibilityFields) {
+                if (empty($aUncompatibilityFields)) {
+                    continue;
+                }
+                if (false !== ($iKeyToUnblacklist = array_search($sUncompatibleField, $aUncompatibilityFields))) {
+                    unset($aUncompatibilityFields[$iKeyToUnblacklist]);
+                    $iNbUsing++;
+                }
+            }
+            if ($iNbUsing > 0) {
+                $sBlacklistedFields .= " ".$sUncompatibleField;
+                unset($aTableFields[$sUncompatibleField]);
+            }
+        }
+        $sBlacklistedFieldsToFile = str_pad($sTableName, ($iTableColumnSize + 2), " ") . ": ".trim($sBlacklistedFields);
+        file_put_contents($sBlacklistedFilePath, $sBlacklistedFieldsToFile."\n", FILE_APPEND);
+    }
+    echo "Build thesaurus for blacklisted fields by table in path: ".$sBlacklistedFilePath."\n";
 }
