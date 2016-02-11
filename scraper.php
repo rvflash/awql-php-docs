@@ -69,7 +69,7 @@ $aUrl = array(
     "VIDEO_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/video-performance-report"
 );
 
-const ADWORDS_API_VERSION = "v201509";
+const ADWORDS_API_VERSION = "v201601";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )
@@ -123,7 +123,7 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
                             {
                                 $aEnum[] = trim($oFieldEnum->text);
                             }
-                            $aFields[$sFieldName] .= " (".implode(";", $aEnum).")";
+                            $aFields[$sFieldName] .= " (".implode(" ", $aEnum).")";
                         }
                     }
                 } elseif ("Behavior" == $oFieldInfo->text && "Segment" == $oFieldInfos[($iIndex + 1)]->text) {
