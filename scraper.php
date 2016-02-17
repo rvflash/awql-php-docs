@@ -22,6 +22,23 @@ function getMaxKeyLength(array $aData)
     return $iMaxKeyLength;
 }
 
+/**
+ * Used to sort array by adding on top the field with more uncompatibilities
+ * @param array $aFieldsA
+ * @param array $aFieldsB
+ * @return bool
+ */
+function sortByUncompatibilities ($aFieldsA, $aFieldsB)
+{
+    $iNbFieldsA = count($aFieldsA);
+    $iNbFieldsB = count($aFieldsB);
+
+    if ($iNbFieldsA == $iNbFieldsB) {
+        return 0;
+    }
+    return ($iNbFieldsA < $iNbFieldsB ? 1 : -1);
+}
+
 // All available reports in Google Adwords
 $aUrl = array(
     "ACCOUNT_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/account-performance-report",
@@ -87,7 +104,7 @@ const XPATH_FIELD_ENUM = ".expandable .nested code";
 const XPATH_FIELD_COMPATIBILITY = ".expandable div code";
 
 $aFields = array();
-$aPercents = array();
+$aRateFields = array();
 $aKeys = array();
 $aExtra = array();
 $aTables = array();
@@ -101,6 +118,7 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
     $aTables[$sTableName] = array();
     $aKeys[$sTableName] = array();
     $aCompatibility[$sTableName] = array();
+    $aRateFields[$sTableName] = array();
 
     echo "Fecth ".$iTablePos."/".$iTableNb.": ".$sAdwordsUrl."\n";
 
@@ -147,33 +165,16 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
             if (false == isset($aExtra[$sFieldName])) {
                 # Give a description for this field
                 $aExtra[$sFieldName] = trim(strtok($oField->find(XPATH_FIELD_EXTRA, 0)->text, "\n"));
-                if (false !== stripos($aExtra[$sFieldName], 'percentage return')) {
-                    $aPercents[$sFieldName] = 1;
-                }
+            }
+            if (false !== stripos($aExtra[$sFieldName], 'percentage return')) {
+                # Detect rate / percent fields
+                $aRateFields[$sTableName][] = $sFieldName;
             }
             # Add this field in this table
             $aTables[$sTableName][] = $sFieldName;
         }
     }
     $iTablePos++;
-}
-
-/**
- * Used to sort array by adding on top the field with more uncompatibilities
- * @param array $aFieldsA
- * @param array $aFieldsB
- * @return bool
- */
-function sortByUncompatibilities ($aFieldsA, $aFieldsB)
-{
-    $iNbFieldsA = count($aFieldsA);
-    $iNbFieldsB = count($aFieldsB);
-
-    if ($iNbFieldsA == $iNbFieldsB) {
-        return 0;
-    }
-
-    return ($iNbFieldsA < $iNbFieldsB ? 1 : -1);
 }
 
 # Create thesaurus in Yaml format
@@ -254,29 +255,26 @@ if (false == empty($aCompatibility)) {
         echo "Build thesaurus for uncompatibles fields for table ".$sTableName." in path: ".$sTableCompatibilitiesFilePath."\n";
 
         # List all blacklisted fields (percent data as value or field which after cleaning still have some uncompatibilities)
-        $sBlacklistedFields = "";
+        $aBlacklistedFields = array();
         $aUncompatibleFields = array_keys(array_filter($aTableFields));
         foreach ($aUncompatibleFields as $sUncompatibleField) {
             $iNbUsing = 0;
-            if (false == isset($aPercents[$sUncompatibleField])) {
-                foreach ($aTableFields as $sFieldName => &$aUncompatibilityFields) {
-                    if (empty($aUncompatibilityFields)) {
-                        continue;
-                    }
-                    if (false !== ($iKeyToUnblacklist = array_search($sUncompatibleField, $aUncompatibilityFields))) {
-                        unset($aUncompatibilityFields[$iKeyToUnblacklist]);
-                        $iNbUsing++;
-                    }
+            foreach ($aTableFields as $sFieldName => &$aUncompatibilityFields) {
+                if (empty($aUncompatibilityFields)) {
+                    continue;
                 }
-            } else {
-                $iNbUsing++;
+                if (false !== ($iKeyToUnblacklist = array_search($sUncompatibleField, $aUncompatibilityFields))) {
+                    unset($aUncompatibilityFields[$iKeyToUnblacklist]);
+                    $iNbUsing++;
+                }
             }
             if ($iNbUsing > 0) {
-                $sBlacklistedFields .= " ".$sUncompatibleField;
+                $aBlacklistedFields[] = $sUncompatibleField;
                 unset($aTableFields[$sUncompatibleField]);
             }
         }
-        $sBlacklistedFieldsToFile = str_pad($sTableName, ($iTableColumnSize + 2), " ") . ": ".trim($sBlacklistedFields);
+        $aBlacklistedFields = array_unique(array_merge($aBlacklistedFields, $aRateFields[$sTableName]));
+        $sBlacklistedFieldsToFile = str_pad($sTableName, ($iTableColumnSize + 2), " ") . ": ".implode(" ", $aBlacklistedFields);
         file_put_contents($sBlacklistedFilePath, $sBlacklistedFieldsToFile."\n", FILE_APPEND);
     }
     echo "Build thesaurus for blacklisted fields by table in path: ".$sBlacklistedFilePath."\n";
