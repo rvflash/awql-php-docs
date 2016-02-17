@@ -22,7 +22,7 @@ function getMaxKeyLength(array $aData)
     return $iMaxKeyLength;
 }
 
-// All availables report in Google Adwords
+// All available reports in Google Adwords
 $aUrl = array(
     "ACCOUNT_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/account-performance-report",
     "AD_CUSTOMIZERS_FEED_ITEM_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/ad-customizers-feed-item-report",
@@ -87,6 +87,7 @@ const XPATH_FIELD_ENUM = ".expandable .nested code";
 const XPATH_FIELD_COMPATIBILITY = ".expandable div code";
 
 $aFields = array();
+$aPercents = array();
 $aKeys = array();
 $aExtra = array();
 $aTables = array();
@@ -146,6 +147,9 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
             if (false == isset($aExtra[$sFieldName])) {
                 # Give a description for this field
                 $aExtra[$sFieldName] = trim(strtok($oField->find(XPATH_FIELD_EXTRA, 0)->text, "\n"));
+                if (false !== stripos($aExtra[$sFieldName], 'percentage return')) {
+                    $aPercents[$sFieldName] = 1;
+                }
             }
             # Add this field in this table
             $aTables[$sTableName][] = $sFieldName;
@@ -227,6 +231,12 @@ if (false == empty($aExtra)) {
 if (false == empty($aCompatibility)) {
     $sCompatibilitiesFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_COMPATIBILITY_DIR."/";
     $sBlacklistedFilePath = __DIR__."/".YAML_DIRECTORY."/".ADWORDS_API_VERSION."/".YAML_BLACKLIST_FIELDS;
+
+    # Reset environment to compute blacklisted fields
+    if (file_exists($sBlacklistedFilePath)) {
+        unlink($sBlacklistedFilePath);
+    }
+
     foreach ($aCompatibility as $sTableName => $aTableFields) {
         uasort($aTableFields, "sortByUncompatibilities");
 
@@ -243,19 +253,23 @@ if (false == empty($aCompatibility)) {
         file_put_contents($sTableCompatibilitiesFilePath, $aCompatibilitiesToFile);
         echo "Build thesaurus for uncompatibles fields for table ".$sTableName." in path: ".$sTableCompatibilitiesFilePath."\n";
 
-        # List all blacklisted fields in this tables (all fields which after cleaning still have some uncompatibilities)
+        # List all blacklisted fields (percent data as value or field which after cleaning still have some uncompatibilities)
         $sBlacklistedFields = "";
         $aUncompatibleFields = array_keys(array_filter($aTableFields));
         foreach ($aUncompatibleFields as $sUncompatibleField) {
             $iNbUsing = 0;
-            foreach ($aTableFields as $sFieldName => &$aUncompatibilityFields) {
-                if (empty($aUncompatibilityFields)) {
-                    continue;
+            if (false == isset($aPercents[$sUncompatibleField])) {
+                foreach ($aTableFields as $sFieldName => &$aUncompatibilityFields) {
+                    if (empty($aUncompatibilityFields)) {
+                        continue;
+                    }
+                    if (false !== ($iKeyToUnblacklist = array_search($sUncompatibleField, $aUncompatibilityFields))) {
+                        unset($aUncompatibilityFields[$iKeyToUnblacklist]);
+                        $iNbUsing++;
+                    }
                 }
-                if (false !== ($iKeyToUnblacklist = array_search($sUncompatibleField, $aUncompatibilityFields))) {
-                    unset($aUncompatibilityFields[$iKeyToUnblacklist]);
-                    $iNbUsing++;
-                }
+            } else {
+                $iNbUsing++;
             }
             if ($iNbUsing > 0) {
                 $sBlacklistedFields .= " ".$sUncompatibleField;
