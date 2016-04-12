@@ -86,7 +86,7 @@ $aUrl = array(
     "VIDEO_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/video-performance-report"
 );
 
-const ADWORDS_API_VERSION = "v201601";
+const ADWORDS_API_VERSION = "v201603";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )
@@ -94,7 +94,7 @@ const YAML_TABLES = "tables.yaml"; // List all tables available, for each gives 
 const YAML_BLACKLIST_FIELDS = "blacklisted_fields.yaml"; // For each tables, list all fields to exclude
 const YAML_FIELDS = "fields.yaml"; // List all fields available, for each gives type of the data
 const YAML_KEYS = "keys.yaml"; // List all tables available, for each gives segmented fields
-const YAML_EXTRA = "extra.yaml"; // List all fields available, for each gives more informations about it
+const YAML_EXTRA = "extra.yaml"; // List all fields available, for each gives more information about it
 
 const XPATH_FIELD = ".devsite-article-body tbody tr";
 const XPATH_FIELD_NAME = "h3";
