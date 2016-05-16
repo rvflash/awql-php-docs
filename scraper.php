@@ -73,6 +73,7 @@ $aUrl = array(
     "KEYWORDS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/keywords-performance-report",
     "LABEL_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/label-report",
     "PAID_ORGANIC_QUERY_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/paid-organic-query-report",
+    "PARENTAL_STATUS_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/parental-status-performance-report",
     "PLACEHOLDER_FEED_ITEM_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/placeholder-feed-item-report",
     "PLACEHOLDER_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/placeholder-report",
     "PLACEMENT_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/placement-performance-report",
@@ -83,6 +84,7 @@ $aUrl = array(
     "SHOPPING_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/shopping-performance-report",
     "URL_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/url-performance-report",
     "USER_AD_DISTANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/user-ad-distance-report",
+    "TOP_CONTENT_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/top-content-performance-report",
     "VIDEO_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/video-performance-report"
 );
 
@@ -150,7 +152,7 @@ foreach ($aUrl as $sTableName => $sAdwordsUrl)
                     $aKeys[$sTableName][] = $sFieldName;
                 }
 
-                # This field has uncompatibilities with others ?
+                # This field has not compatible with others fields ?
                 if (false == isset($aCompatibility[$sTableName][$sFieldName])) {
                     $aCompatibility[$sTableName][$sFieldName] = array();
 
