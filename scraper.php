@@ -88,7 +88,7 @@ $aUrl = array(
     "VIDEO_PERFORMANCE_REPORT" => "https://developers.google.com/adwords/api/docs/appendix/reports/video-performance-report"
 );
 
-const ADWORDS_API_VERSION = "v201603";
+const ADWORDS_API_VERSION = "v201605";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )
