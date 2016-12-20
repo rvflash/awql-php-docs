@@ -170,7 +170,7 @@ UrlCustomParameters                                    : Custom URL parameters o
 BidModifier                                            : The bid modifier. To filter by this field, use values greater than 0 and less than or equal to 1. Percentage returned as "x.xx%".
 CpcBidSource                                           : Source of the CPC bid.
 CpmBidSource                                           : Source of the CPM bid.
-Criteria                                               : Descriptive string for the Criterion.
+Criteria                                               : Descriptive string for the Criterion. For more information on the format of criteria types in reports, see the Criteria prefixes section of the reporting guide.
 CriteriaDestinationUrl                                 : Destination URL of the criterion that triggered ads.
 FinalAppUrls                                           : List of final app URLs of the main object of this row. List entries will start with one of: a) "android-app:" (for Android apps) or b) "os-app:" (for iOS apps).
 FinalMobileUrls                                        : List of final mobile URLs of the main object of this row.
@@ -178,8 +178,8 @@ FinalUrls                                              : List of final URLs of t
 IsRestrict                                             : A value of 'true' indicates that the criterion type is used for bidding and restricting targeting. A value of 'false' indicates that the criterion type is used only for bidding. This will have the opposite value from that of targetAll for the criteria's corresponding AdGroup.TargetingSettingDetail. For example, if the TargetingSettingDetail for criterionTypeGroup = PLACEMENT has targetAll = true, then the IsRestrict field will be false for Placement criteria.
 UserListName                                           : The name of the AdwordsUserList.
 AdFormat                                               : The underlying media format of the ad. Values can be one of the formats on the Template Ads page, or a MediaType enum.
-CriteriaParameters                                     : Descriptive string for the Criterion.
-DisplayName                                            : Descriptive name for the criterion.
+CriteriaParameters                                     : Descriptive string for the Criterion. For more information on the format of criteria types in reports, see the Criteria prefixes section of the reporting guide.
+DisplayName                                            : Descriptive name for the criterion. For more information on the format of criteria types in reports, see the Criteria prefixes section of the reporting guide.
 Domain                                                 : The domain of the URL (placement) where the impression was shown.
 IsAutoOptimized                                        : Indicates if Display Campaign Optimizer is enabled for the ad group. Corresponds to the ad group's ExplorerAutoOptimizerSetting.
 IsBidOnPath                                            : Indicates if the placement was added as a criterion.
