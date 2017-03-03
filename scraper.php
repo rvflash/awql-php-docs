@@ -121,11 +121,13 @@ $aUrl = array(
             "key" => "CampaignId",
             "url" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-performance-report",
         ),
+    /*
     "CAMPAIGN_PLATFORM_TARGET_REPORT" =>
         array(
             "key" => "Id",
             "url" => "https://developers.google.com/adwords/api/docs/appendix/reports/campaign-platform-target-report",
         ),
+    */
     "CAMPAIGN_SHARED_SET_REPORT" =>
         array(
             "key" => "SharedSetName",
@@ -268,7 +270,7 @@ $aUrl = array(
         ),
 );
 
-const ADWORDS_API_VERSION = "v201609";
+const ADWORDS_API_VERSION = "v201702";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )

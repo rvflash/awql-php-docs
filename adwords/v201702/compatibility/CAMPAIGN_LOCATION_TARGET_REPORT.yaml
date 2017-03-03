@@ -1,0 +1,18 @@
+ExternalConversionSource  : AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks Cost Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions VideoViewRate VideoViews
+Ctr                       : ExternalConversionSource
+AveragePosition           : ExternalConversionSource
+EngagementRate            : ExternalConversionSource
+Impressions               : ExternalConversionSource
+InteractionRate           : ExternalConversionSource
+Interactions              : ExternalConversionSource
+InteractionTypes          : ExternalConversionSource
+Cost                      : ExternalConversionSource
+Clicks                    : ExternalConversionSource
+Engagements               : ExternalConversionSource
+AverageCpv                : ExternalConversionSource
+AverageCost               : ExternalConversionSource
+VideoViews                : ExternalConversionSource
+VideoViewRate             : ExternalConversionSource
+AverageCpc                : ExternalConversionSource
+AverageCpm                : ExternalConversionSource
+AverageCpe                : ExternalConversionSource
