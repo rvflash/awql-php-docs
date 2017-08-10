@@ -270,7 +270,7 @@ $aUrl = array(
         ),
 );
 
-const ADWORDS_API_VERSION = "v201705";
+const ADWORDS_API_VERSION = "v201708";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )

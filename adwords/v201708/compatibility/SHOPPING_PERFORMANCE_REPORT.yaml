@@ -1,0 +1,25 @@
+ProductTitle              : AllConversionRate AllConversionValue AllConversions ConversionRate ConversionValue Conversions CostPerAllConversion CostPerConversion CrossDeviceConversions ValuePerAllConversion ValuePerConversion
+ConversionTypeName        : AverageCpc Clicks Cost Ctr Impressions SearchClickShare SearchImpressionShare
+ConversionTrackerId       : AverageCpc Clicks Cost Ctr Impressions SearchClickShare SearchImpressionShare
+ConversionCategoryName    : AverageCpc Clicks Cost Ctr Impressions SearchClickShare SearchImpressionShare
+ExternalConversionSource  : AverageCpc Clicks Cost Ctr Impressions SearchClickShare SearchImpressionShare
+SearchImpressionShare     : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource StoreId
+SearchClickShare          : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Clicks                    : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Cost                      : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpc                : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Impressions               : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Ctr                       : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+ClickType                 : SearchClickShare SearchImpressionShare
+Conversions               : ProductTitle
+CostPerAllConversion      : ProductTitle
+CostPerConversion         : ProductTitle
+ValuePerConversion        : ProductTitle
+CrossDeviceConversions    : ProductTitle
+ValuePerAllConversion     : ProductTitle
+ConversionRate            : ProductTitle
+AllConversionValue        : ProductTitle
+AllConversions            : ProductTitle
+AllConversionRate         : ProductTitle
+StoreId                   : SearchImpressionShare
+ConversionValue           : ProductTitle
