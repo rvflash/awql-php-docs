@@ -1,0 +1,22 @@
+ExternalConversionSource  : AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks Cost Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews
+Engagements               : ExternalConversionSource
+VideoQuartile50Rate       : ExternalConversionSource
+EngagementRate            : ExternalConversionSource
+Ctr                       : ExternalConversionSource
+Impressions               : ExternalConversionSource
+InteractionRate           : ExternalConversionSource
+Interactions              : ExternalConversionSource
+Cost                      : ExternalConversionSource
+InteractionTypes          : ExternalConversionSource
+VideoQuartile100Rate      : ExternalConversionSource
+VideoQuartile25Rate       : ExternalConversionSource
+Clicks                    : ExternalConversionSource
+VideoQuartile75Rate       : ExternalConversionSource
+AveragePosition           : ExternalConversionSource
+VideoViews                : ExternalConversionSource
+VideoViewRate             : ExternalConversionSource
+AverageCost               : ExternalConversionSource
+AverageCpc                : ExternalConversionSource
+AverageCpe                : ExternalConversionSource
+AverageCpv                : ExternalConversionSource
+AverageCpm                : ExternalConversionSource
