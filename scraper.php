@@ -198,6 +198,11 @@ $aUrl = array(
             "key" => "LabelId",
             "url" => "https://developers.google.com/adwords/api/docs/appendix/reports/label-report",
         ),
+    "LANDING_PAGE_REPORT" =>
+        array(
+            "key" => "UnexpandedFinalUrlString",
+            "url" => "https://developers.google.com/adwords/api/docs/appendix/reports/landing-page-report",
+        ),
     "PAID_ORGANIC_QUERY_REPORT" =>
         array(
             "key" => "SearchQuery",
@@ -270,7 +275,7 @@ $aUrl = array(
         ),
 );
 
-const ADWORDS_API_VERSION = "v201710";
+const ADWORDS_API_VERSION = "v201802";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )

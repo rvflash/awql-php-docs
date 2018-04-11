@@ -1,0 +1,18 @@
+ExternalConversionSource          : AverageCpc AverageCpm BenchmarkAverageMaxCpc BenchmarkCtr Clicks Cost Ctr Impressions SearchAbsoluteTopImpressionShare SearchClickShare SearchImpressionShare
+ConversionTypeName                : AverageCpc AverageCpm BenchmarkAverageMaxCpc BenchmarkCtr Clicks Cost Ctr Impressions SearchAbsoluteTopImpressionShare SearchClickShare SearchImpressionShare
+ConversionCategoryName            : AverageCpc AverageCpm BenchmarkAverageMaxCpc BenchmarkCtr Clicks Cost Ctr Impressions SearchAbsoluteTopImpressionShare SearchClickShare SearchImpressionShare
+ConversionTrackerId               : AverageCpc AverageCpm BenchmarkAverageMaxCpc BenchmarkCtr Clicks Cost Ctr Impressions SearchAbsoluteTopImpressionShare SearchClickShare SearchImpressionShare
+BenchmarkAverageMaxCpc            : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName Device ExternalConversionSource
+BenchmarkCtr                      : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName Device ExternalConversionSource
+ClickType                         : BenchmarkAverageMaxCpc BenchmarkCtr SearchAbsoluteTopImpressionShare SearchClickShare SearchImpressionShare ViewThroughConversions
+SearchAbsoluteTopImpressionShare  : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+SearchClickShare                  : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+SearchImpressionShare             : ClickType ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpc                        : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpm                        : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Clicks                            : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Impressions                       : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Ctr                               : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Cost                              : ConversionCategoryName ConversionTrackerId ConversionTypeName ExternalConversionSource
+Device                            : BenchmarkAverageMaxCpc BenchmarkCtr
+ViewThroughConversions            : ClickType

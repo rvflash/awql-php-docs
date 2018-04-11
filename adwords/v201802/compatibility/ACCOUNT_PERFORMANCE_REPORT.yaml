@@ -1,0 +1,49 @@
+ConversionLagBucket               : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare Cost CostPerAllConversion CostPerConversion Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions InvalidClickRate InvalidClicks SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare ValuePerConversion VideoViewRate VideoViews ViewThroughConversions
+ConversionCategoryName            : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare Cost Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions InvalidClickRate InvalidClicks SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare VideoViewRate VideoViews
+ExternalConversionSource          : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare Cost Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions InvalidClickRate InvalidClicks SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare VideoViewRate VideoViews
+ConversionTypeName                : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare Cost Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions InvalidClickRate InvalidClicks SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare VideoViewRate VideoViews
+ConversionTrackerId               : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare Cost Ctr EngagementRate Engagements Impressions InteractionRate InteractionTypes Interactions InvalidClickRate InvalidClicks SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare VideoViewRate VideoViews
+ClickType                         : AverageCpe AverageCpv ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare EngagementRate Engagements SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare VideoViewRate VideoViews ViewThroughConversions
+Slot                              : ContentBudgetLostImpressionShare ContentImpressionShare ContentRankLostImpressionShare CrossDeviceConversions HourOfDay InvalidClickRate InvalidClicks SearchBudgetLostImpressionShare SearchExactMatchImpressionShare SearchImpressionShare SearchRankLostImpressionShare
+HourOfDay                         : AllConversionRate AllConversionValue AllConversions CostPerAllConversion CrossDeviceConversions InvalidClickRate InvalidClicks Slot ValuePerAllConversion
+InvalidClickRate                  : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource HourOfDay Slot
+SearchBudgetLostImpressionShare   : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+SearchExactMatchImpressionShare   : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+SearchImpressionShare             : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+SearchRankLostImpressionShare     : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+ContentRankLostImpressionShare    : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+ContentImpressionShare            : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+ContentBudgetLostImpressionShare  : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource Slot
+InvalidClicks                     : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource HourOfDay Slot
+AverageCpe                        : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Engagements                       : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpv                        : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoViewRate                     : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoViews                        : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+EngagementRate                    : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewMeasurableCost          : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewMeasurability           : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewImpressions             : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewCpm                     : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewCtr                     : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpm                        : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Impressions                       : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+InteractionRate                   : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Interactions                      : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+InteractionTypes                  : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Ctr                               : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewMeasurableImpressions   : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Cost                              : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCost                       : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AveragePosition                   : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewViewability             : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Clicks                            : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpc                        : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+CostPerAllConversion              : ConversionLagBucket HourOfDay
+ViewThroughConversions            : ClickType ConversionLagBucket
+CrossDeviceConversions            : HourOfDay Slot
+AllConversionRate                 : HourOfDay
+CostPerConversion                 : ConversionLagBucket
+AllConversions                    : HourOfDay
+AllConversionValue                : HourOfDay
+ValuePerAllConversion             : HourOfDay
