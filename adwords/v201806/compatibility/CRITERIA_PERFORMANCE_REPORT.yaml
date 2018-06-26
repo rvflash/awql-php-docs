@@ -1,0 +1,43 @@
+ConversionLagBucket                       : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition ClickType Clicks Cost CostPerAllConversion CostPerConversion CostPerCurrentModelAttributedConversion Ctr EngagementRate Engagements GmailForwards GmailSaves GmailSecondaryClicks Impressions InteractionRate InteractionTypes Interactions ValuePerConversion VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews ViewThroughConversions
+ConversionTypeName                        : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks Cost Ctr EngagementRate Engagements GmailForwards GmailSaves GmailSecondaryClicks Impressions InteractionRate InteractionTypes Interactions VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews
+ConversionTrackerId                       : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks Cost Ctr EngagementRate Engagements GmailForwards GmailSaves GmailSecondaryClicks Impressions InteractionRate InteractionTypes Interactions VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews
+ExternalConversionSource                  : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks Cost Ctr EngagementRate Engagements GmailForwards GmailSaves GmailSecondaryClicks Impressions InteractionRate InteractionTypes Interactions VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews
+ConversionCategoryName                    : ActiveViewCpm ActiveViewCtr ActiveViewImpressions ActiveViewMeasurability ActiveViewMeasurableCost ActiveViewMeasurableImpressions ActiveViewViewability AverageCost AverageCpc AverageCpe AverageCpm AverageCpv AveragePosition Clicks Cost Ctr EngagementRate Engagements GmailForwards GmailSaves GmailSecondaryClicks Impressions InteractionRate InteractionTypes Interactions VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews
+ClickType                                 : AverageCpe AverageCpv ConversionLagBucket EngagementRate Engagements VideoQuartile100Rate VideoQuartile25Rate VideoQuartile50Rate VideoQuartile75Rate VideoViewRate VideoViews ViewThroughConversions
+AverageCpe                                : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoQuartile50Rate                       : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Engagements                               : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+EngagementRate                            : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoQuartile100Rate                      : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoQuartile25Rate                       : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoViewRate                             : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoQuartile75Rate                       : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+VideoViews                                : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpv                                : ClickType ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+InteractionTypes                          : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Clicks                                    : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+InteractionRate                           : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Interactions                              : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+GmailSecondaryClicks                      : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Impressions                               : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Cost                                      : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+GmailSaves                                : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+GmailForwards                             : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AveragePosition                           : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewMeasurableImpressions           : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewCpm                             : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewCtr                             : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewImpressions                     : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewMeasurability                   : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpm                                : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewMeasurableCost                  : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ActiveViewViewability                     : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+Ctr                                       : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCost                               : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+AverageCpc                                : ConversionCategoryName ConversionLagBucket ConversionTrackerId ConversionTypeName ExternalConversionSource
+ViewThroughConversions                    : ClickType ConversionLagBucket
+Slot                                      : CrossDeviceConversions
+CostPerCurrentModelAttributedConversion   : ConversionLagBucket
+CrossDeviceConversions                    : Slot
+CostPerAllConversion                      : ConversionLagBucket
+CostPerConversion                         : ConversionLagBucket
