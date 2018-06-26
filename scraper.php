@@ -275,7 +275,7 @@ $aUrl = array(
         ),
 );
 
-const ADWORDS_API_VERSION = "v201802";
+const ADWORDS_API_VERSION = "v201806";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )
