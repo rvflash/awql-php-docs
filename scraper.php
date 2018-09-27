@@ -148,11 +148,13 @@ $aUrl = array(
             "key" => "Id",
             "url" => "https://developers.google.com/adwords/api/docs/appendix/reports/criteria-performance-report",
         ),
+    /*
     "DESTINATION_URL_REPORT" =>
         array(
             "key" => "CriteriaDestinationUrl",
             "url" => "https://developers.google.com/adwords/api/docs/appendix/reports/destination-url-report",
         ),
+    */
     "DISPLAY_KEYWORD_PERFORMANCE_REPORT" =>
         array(
             "key" => "Id",
@@ -275,7 +277,7 @@ $aUrl = array(
         ),
 );
 
-const ADWORDS_API_VERSION = "v201806";
+const ADWORDS_API_VERSION = "v201809";
 
 const YAML_DIRECTORY = "adwords";
 const YAML_COMPATIBILITY_DIR = "compatibility"; // For each tables, list all fields with incompatibility with others (from the more inconsistent at least )
